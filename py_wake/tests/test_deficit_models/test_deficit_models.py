@@ -197,7 +197,7 @@ def test_wake_radius(deficitModel, wake_radius_ref):
     wfm = PropagateDownwind(site, windTurbines, wake_deficitModel=deficitModel, turbulenceModel=GCLTurbulence())
     wfm(x=[0, 500], y=[0, 0], wd=[30], ws=[10])
 
-    if 0:
+    if 1:
         sim_res = wfm([0], [0], wd=[270], ws=10)
         sim_res.flow_map(HorizontalGrid(x=np.arange(-100, 1500, 10))).WS_eff.plot()
         x = np.arange(0, 1500, 10)
