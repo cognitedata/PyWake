@@ -199,7 +199,6 @@ def test_with_all_deficit_models(WFM):
     site = IEA37Site(16)
     windTurbines = IEA37_WindTurbines()
     for deficitModel in get_models(WakeDeficitModel):
-
         wfm = WFM(site, windTurbines, wake_deficitModel=deficitModel(),
                   rotorAvgModel=RotorCenter(),
                   superpositionModel=LinearSum(),

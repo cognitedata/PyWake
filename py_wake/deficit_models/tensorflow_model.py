@@ -13,7 +13,7 @@ import time
 
 class TensorFlowDeficit(WakeDeficitModel, BlockageDeficitModel):
 
-    def __init__(self, path, set_name):
+    def __init__(self, path=example_data_path + "rans_surrogate", set_name="main"):
         self.surrogate = TensorflowSurrogate(path, set_name)
         WakeDeficitModel.__init__(self)
 
