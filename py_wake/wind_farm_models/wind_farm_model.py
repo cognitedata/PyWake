@@ -60,7 +60,7 @@ class WindFarmModel(ABC):
 
         if len(x) == 0:
             lw = UniformSite([1], 0.1).local_wind(x_i=[], y_i=[], h_i=[], wd=wd, ws=ws)
-            z = xr.DataArray(np.zeros((0, len(lw.wd), len(lw.ws))), coords=[('wt', []), ('wd', da2py(lw.wd)),
+            z = xr.DataArray(np.zeros((0, len(lw.wd), len(lw.ws)), dtype=py_wake.dtype), coords=[('wt', []), ('wd', da2py(lw.wd)),
                                                                             ('ws', da2py(lw.ws))])
             return SimulationResult(self, lw, [], yaw, tilt, z, z, z, z, kwargs)
         res = self.calc_wt_interaction(x_i=np.asarray(x), y_i=np.asarray(y), h_i=h, type_i=type,

@@ -128,7 +128,7 @@ def test_MultiMultiPowerCtCurve_subset():
     npt.assert_array_equal(ri, ['mode', 'mytype'])
     npt.assert_array_equal(oi, ['Air_density', 'tilt', 'yaw'])
 
-    u = np.zeros((2, 3, 4)) + np.arange(3, 7)[na, na, :]
+    u = np.zeros((2, 3, 4), dtype=py_wake.dtype) + np.arange(3, 7)[na, na, :]
     type_2 = np.array([0, 1])
     type_2_3 = np.broadcast_to(type_2[:, na], (2, 3))
     type_2_3_4 = np.broadcast_to(type_2[:, na, na], (2, 3, 4))

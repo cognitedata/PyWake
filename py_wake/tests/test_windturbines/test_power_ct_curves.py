@@ -72,7 +72,7 @@ def test_MultiPowerCtCurve():
     npt.assert_array_almost_equal(ct0, ct1 - .1)
 
     # subset
-    u = np.zeros((16, 360, 23)) + np.arange(3, 26)[na, na, :]
+    u = np.zeros((16, 360, 23), dtype=py_wake.dtype) + np.arange(3, 26)[na, na, :]
     mode_16 = (np.arange(16) > 7)
     mode_16_360 = np.broadcast_to(mode_16[:, na], (16, 360))
     mode_16_360_23 = np.broadcast_to(mode_16[:, na, na], (16, 360, 23))
@@ -101,7 +101,7 @@ def test_MultiMultiPowerCtCurve_subset():
     npt.assert_array_equal(sorted(curve.optional_inputs)[::-1], ['yaw', 'tilt', 'Air_density'])
     npt.assert_array_equal(sorted(curve.required_inputs)[::-1], ['type', 'mode'])
 
-    u = np.zeros((2, 3, 4)) + np.arange(3, 7)[na, na, :]
+    u = np.zeros((2, 3, 4), dtype=py_wake.dtype) + np.arange(3, 7)[na, na, :]
     type_2 = np.array([0, 1])
     type_2_3 = np.broadcast_to(type_2[:, na], (2, 3))
     type_2_3_4 = np.broadcast_to(type_2[:, na, na], (2, 3, 4))
@@ -146,7 +146,7 @@ def test_2d_tabular():
     npt.assert_array_almost_equal_nulp(ct, np.interp(u, u_p, ct_c))
 
     # subset
-    u = np.zeros((16, 360, 23)) + np.arange(3, 26)[na, na, :]
+    u = np.zeros((16, 360, 23), dtype=py_wake.dtype) + np.arange(3, 26)[na, na, :]
     boost_16 = (np.arange(16) > 7) * .1
     boost_16_360 = np.broadcast_to(boost_16[:, na], (16, 360))
     boost_16_360_23 = np.broadcast_to(boost_16[:, na, na], (16, 360, 23))
@@ -230,7 +230,7 @@ def test_continuous():
     npt.assert_array_almost_equal(ct0 * 1.3 / 1.225, ct2)
 
     # subset
-    u = np.zeros((16, 360, 23)) + np.arange(3, 26)[na, na, :]
+    u = np.zeros((16, 360, 23), dtype=py_wake.dtype) + np.arange(3, 26)[na, na, :]
     boost_16 = (np.arange(16) > 7) * .1 + 1
     boost_16_360 = np.broadcast_to(boost_16[:, na], (16, 360))
     boost_16_360_23 = np.broadcast_to(boost_16[:, na, na], (16, 360, 23))
@@ -261,7 +261,7 @@ def test_missing_input_PowerCtFunctionList():
     curve = PowerCtFunctionList('mode', [PowerCtTabular(ws=u_p, power=p + 1, power_unit='w', ct=ct),
                                          PowerCtTabular(ws=u_p, power=p + 2, power_unit='w', ct=ct),
                                          PowerCtTabular(ws=u_p, power=p + 3, power_unit='w', ct=ct)])
-    u = np.zeros((16, 360, 23)) + np.arange(3, 26)[na, na, :]
+    u = np.zeros((16, 360, 23), dtype=py_wake.dtype) + np.arange(3, 26)[na, na, :]
     with pytest.raises(KeyError, match="Argument, mode, required to calculate power and ct not found"):
         curve(u)
 
@@ -269,7 +269,7 @@ def test_missing_input_PowerCtFunctionList():
 def test_missing_input():
     curve = get_continuous_curve('boost', False)
 
-    u = np.zeros((16, 360, 23)) + np.arange(3, 26)[na, na, :]
+    u = np.zeros((16, 360, 23), dtype=py_wake.dtype) + np.arange(3, 26)[na, na, :]
     with pytest.raises(KeyError, match="'boost'"):
         curve(u)
 

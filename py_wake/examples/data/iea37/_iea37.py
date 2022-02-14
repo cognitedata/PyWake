@@ -1,5 +1,6 @@
 import numpy as np
 
+import py_wake
 from py_wake.examples.data.iea37.iea37_reader import read_iea37_windturbine, read_iea37_windturbine_deprecated
 from py_wake.examples.data.iea37 import iea37_path
 from py_wake.examples.data.iea37.iea37_aepcalc import getTurbLocYAML,\
@@ -36,7 +37,7 @@ class IEA37Site(UniformSite):
 
         _, wsp, freq = read_iea37_windrose(iea37_path + "iea37-windrose.yaml")
         UniformSite.__init__(self, freq, ti, ws=wsp, shear=shear)
-        self.initial_position = np.array(read_iea37_windfarm(iea37_path + 'iea37-ex%d.yaml' % n_wt)[:2]).T
+        self.initial_position = np.array(read_iea37_windfarm(iea37_path + 'iea37-ex%d.yaml' % n_wt)[:2], dtype=py_wake.dtype).T
 
 
 class IEA37AEPCalc():

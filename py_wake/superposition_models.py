@@ -86,7 +86,7 @@ class WeightedSum(SuperpositionModel):
                  convection_velocity_jxxx,
                  sigma_sqr_jxxx, cw_jxxx, hcw_jxxx, dh_jxxx):
 
-        Ws = WS_xxx + np.zeros(centerline_deficit_jxxx.shape[1:])
+        Ws = WS_xxx + np.zeros(centerline_deficit_jxxx.shape[1:], dtype=py_wake.dtype)
 
         usc = centerline_deficit_jxxx
         uc = convection_velocity_jxxx
@@ -169,7 +169,7 @@ class WeightedSum(SuperpositionModel):
                         if Ilxx.any():
                             # To keep the shape, arrays are repeated and a dummy initilized
                             # Instead of a dummy one could use a loop, but this seemed faster
-                            tmp2 = np.zeros(((len(k),) + sigma_sqr.shape[1:]))
+                            tmp2 = np.zeros(((len(k),) + sigma_sqr.shape[1:]), dtype=py_wake.dtype)
                             s1, s2 = np.repeat(sigma_sqr[j][na], len(k), axis=0)[Ilxx], sigma_sqr[k][Ilxx]
                             w2w_hcw = np.abs(hcw[j][na] - hcw[k])[Ilxx]
                             w2w_dh = np.abs(dh[j][na] - dh[k])[Ilxx]

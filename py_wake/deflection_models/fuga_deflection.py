@@ -30,8 +30,8 @@ class FugaDeflection(FugaUtils, DeflectionModel):
         nx0 = self.nx0
         ny = self.ny // 2
 
-        fL = np.cumsum(np.concatenate([np.zeros((ny, 1)), ((VL[:, :-1] + VL[:, 1:]) / 2)], 1), 1)
-        fT = np.cumsum(np.concatenate([np.zeros((ny, 1)), ((VT[:, :-1] + VT[:, 1:]) / 2)], 1), 1)
+        fL = np.cumsum(np.concatenate([np.zeros((ny, 1), dtype=py_wake.dtype), ((VL[:, :-1] + VL[:, 1:]) / 2)], 1), 1)
+        fT = np.cumsum(np.concatenate([np.zeros((ny, 1), dtype=py_wake.dtype), ((VT[:, :-1] + VT[:, 1:]) / 2)], 1), 1)
 
         # subtract rotor center
         fL = (fL - fL[:, nx0:nx0 + 1]) * self.dx
@@ -120,7 +120,7 @@ class FugaDeflection(FugaUtils, DeflectionModel):
     def get_hcw_jlk(self, i, K, L, x, y, dw_ijl, hcw_ijl, F_ilk, theta_ilk):
         if (K == 1 and L > 1 and np.all(dw_ijl == dw_ijl[:1, :, :1]) and np.all(hcw_ijl == hcw_ijl[:1, :, :1]) and
                 len(np.unique(theta_ilk[i, :, 0])) < L):
-            hcw_jlk = np.zeros((dw_ijl.shape[1], L, K))
+            hcw_jlk = np.zeros((dw_ijl.shape[1], L, K), dtype=py_wake.dtype)
             for theta, l in zip(*np.unique(theta_ilk[i], return_index=True)):
                 hcw_jlk[:, theta_ilk[i, :, 0] == theta] = np.array(self.get_hcw_jk(
                     i, l, K, x, y, dw_ijl, hcw_ijl, F_ilk, theta_ilk)).T[:, na]
