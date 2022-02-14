@@ -3,6 +3,7 @@ import pytest
 import xarray as xr
 import matplotlib.pyplot as plt
 import numpy as np
+import py_wake
 from py_wake.examples.data import hornsrev1
 from py_wake.tests import npt
 from py_wake.wind_turbines.power_ct_functions import CubePowerSimpleCt, DensityScale, \

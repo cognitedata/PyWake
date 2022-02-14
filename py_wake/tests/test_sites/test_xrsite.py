@@ -1,4 +1,5 @@
 import numpy as np
+import py_wake
 from py_wake.site.shear import PowerShear
 from py_wake.site.xrsite import XRSite, GlobalWindAtlasSite
 import xarray as xr
