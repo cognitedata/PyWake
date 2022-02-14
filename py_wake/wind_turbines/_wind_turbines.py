@@ -118,11 +118,11 @@ Use WindTurbines(names, diameters, hub_heights, power_ct_funcs) instead""", Depr
         if h_i is None:
             h_i = self.hub_height(type_i)
         elif isinstance(h_i, (int, float)):
-            h_i = np.zeros(N, dtype=py_wake.dtype) + h_i
+            h_i = np.zeros(N, dtype=py_wake._dtype) + h_i
         if d_i is None:
             d_i = self.diameter(type_i)
         elif isinstance(d_i, (int, float)):
-            d_i = np.zeros(N, dtype=py_wake.dtype) + d_i
+            d_i = np.zeros(N, dtype=py_wake._dtype) + d_i
         return np.asarray(h_i), np.asarray(d_i)
 
     def enable_autograd(self):

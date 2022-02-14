@@ -59,10 +59,10 @@ def GaussianWake(frame_coords, turb_diam):
     # Constant, relating to a turbulence intensity of 0.075
     k = 0.0324555
     # Array holding the wake deficit seen at each turbine
-    loss = np.zeros(num_turb, dtype=py_wake.dtype)
+    loss = np.zeros(num_turb, dtype=py_wake._dtype)
 
     for i in range(num_turb):            # Looking at each turb (Primary)
-        loss_array = np.zeros(num_turb, dtype=py_wake.dtype)  # Calculate the loss from all others
+        loss_array = np.zeros(num_turb, dtype=py_wake._dtype)  # Calculate the loss from all others
         for j in range(num_turb):        # Looking at all other turbs (Target)
             x = frame_coords.x[i] - frame_coords.x[j]   # Calculate the x-dist
             y = frame_coords.y[i] - frame_coords.y[j]   # And the y-offset
@@ -91,7 +91,7 @@ def DirPower(turb_coords, wind_dir_deg, wind_speed,
     # Effective windspeed is freestream multiplied by wake deficits
     wind_speed_eff = wind_speed * (1. - loss)
     # By default, the turbine's power output is zero
-    turb_pwr = np.zeros(num_turb, dtype=py_wake.dtype)
+    turb_pwr = np.zeros(num_turb, dtype=py_wake._dtype)
 
     # Check to see if turbine produces power for experienced wind speed
     for n in range(num_turb):
@@ -119,7 +119,7 @@ def calcAEP(turb_coords, wind_freq, wind_speed, wind_dir,
     num_bins = len(wind_freq)  # Number of bins used for our windrose
 
     #  Power produced by the wind farm from each wind direction
-    pwr_produced = np.zeros(num_bins, dtype=py_wake.dtype)
+    pwr_produced = np.zeros(num_bins, dtype=py_wake._dtype)
     # For each wind bin
     for i in range(num_bins):
         # Find the farm's power for the current direction

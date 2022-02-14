@@ -319,7 +319,7 @@ class HorizontalGrid(Grid):
         # setup horizontal X,Y grid
         def f(x, N=self.resolution, ext=self.extend):
             ext *= np.max([1000, (np.max(x) - np.min(x))])
-            return np.linspace(np.min(x) - ext, np.max(x) + ext, N, dtype=py_wake.dtype)
+            return np.linspace(np.min(x) - ext, np.max(x) + ext, N, dtype=py_wake._dtype)
         x, y, h = self.x, self.y, self.h
         if x is None:
             x = f(x_i)
@@ -373,7 +373,7 @@ class YZGrid(Grid):
         # setup horizontal X,Y grid
         def f(x, N=self.resolution, ext=self.extend):
             ext *= max(1000, (max(x) - min(x)))
-            return np.linspace(min(x) - ext, max(x) + ext, N, dtype=py_wake.dtype)
+            return np.linspace(min(x) - ext, max(x) + ext, N, dtype=py_wake._dtype)
         x, y, z = self.x, self.y, self.z
         if y is None:
             y = f(y_i)

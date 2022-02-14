@@ -363,7 +363,7 @@ class UniformSite(XRSite):
     def __init__(self, p_wd, ti=None, ws=12, interp_method='nearest', shear=None, initial_position=None):
         ds = xr.Dataset(
             data_vars={'P': ('wd', p_wd)},
-            coords={'wd': np.linspace(0, 360, len(p_wd), endpoint=False, dtype=py_wake.dtype)})
+            coords={'wd': np.linspace(0, 360, len(p_wd), endpoint=False, dtype=py_wake._dtype)})
         if ti is not None:
             ds['TI'] = ti
         XRSite.__init__(self, ds, interp_method=interp_method, shear=shear, initial_position=initial_position,
@@ -402,7 +402,7 @@ class UniformWeibullSite(XRSite):
         """
         ds = xr.Dataset(
             data_vars={'Sector_frequency': ('wd', p_wd), 'Weibull_A': ('wd', a), 'Weibull_k': ('wd', k)},
-            coords={'wd': np.linspace(0, 360, len(p_wd), endpoint=False, dtype=py_wake.dtype)})
+            coords={'wd': np.linspace(0, 360, len(p_wd), endpoint=False, dtype=py_wake._dtype)})
         if ti is not None:
             ds['TI'] = ti
         XRSite.__init__(self, ds, interp_method=interp_method, shear=shear)

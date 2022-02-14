@@ -227,9 +227,9 @@ class EngineeringWindFarmModel(WindFarmModel):
                 add_arg(k, opt)
 
         if yaw_ilk is None:
-            yaw_ilk = np.zeros((I, L, K), dtype=py_wake.dtype)
+            yaw_ilk = np.zeros((I, L, K), dtype=py_wake._dtype)
         if tilt_ilk is None:
-            tilt_ilk = np.zeros((I, L, K), dtype=py_wake.dtype)
+            tilt_ilk = np.zeros((I, L, K), dtype=py_wake._dtype)
 
         kwargs = {'localWind': lw,
                   'WS_eff_ilk': WS_eff_ilk, 'TI_eff_ilk': TI_eff_ilk,
@@ -266,8 +266,8 @@ class EngineeringWindFarmModel(WindFarmModel):
         lw_j = self.site.local_wind(x_i=x_j, y_i=y_j, h_i=h_j, wd=wd, ws=ws)
         I, J, L, K = [len(x) for x in [wt_x_i, x_j, wd, ws]]
 
-        WS_eff_jlk = np.zeros((len(x_j), L, K), dtype=py_wake.dtype)
-        TI_eff_jlk = np.zeros((len(x_j), L, K), dtype=py_wake.dtype)
+        WS_eff_jlk = np.zeros((len(x_j), L, K), dtype=py_wake._dtype)
+        TI_eff_jlk = np.zeros((len(x_j), L, K), dtype=py_wake._dtype)
 
         self.site.distance.setup(wt_x_i, wt_y_i, wt_h_i, (x_j, y_j, h_j))
 
@@ -312,11 +312,11 @@ class EngineeringWindFarmModel(WindFarmModel):
 
             if I * J * K * 8 / 1024**2 > 10:
                 # one wt at the time to avoid memory problems
-                deficit_ijk = np.zeros((I, J, K), dtype=py_wake.dtype)
-                blockage_ijk = np.zeros((I, J, K), dtype=py_wake.dtype)
-                add_turb_ijk = np.zeros((I, J, K), dtype=py_wake.dtype)
-                uc_ijk = np.zeros((I, J, K), dtype=py_wake.dtype)
-                sigma_sqr_ijk = np.zeros((I, J, K), dtype=py_wake.dtype)
+                deficit_ijk = np.zeros((I, J, K), dtype=py_wake._dtype)
+                blockage_ijk = np.zeros((I, J, K), dtype=py_wake._dtype)
+                add_turb_ijk = np.zeros((I, J, K), dtype=py_wake._dtype)
+                uc_ijk = np.zeros((I, J, K), dtype=py_wake._dtype)
+                sigma_sqr_ijk = np.zeros((I, J, K), dtype=py_wake._dtype)
                 for i in tqdm(range(I), disable=I <= 1 or not self.verbose,
                               desc="Calculate flow map for wd=%d" % l, unit='wt'):
                     args_i = {k: v[i][na] for k, v in args.items()}
@@ -464,7 +464,7 @@ class PropagateDownwind(EngineeringWindFarmModel):
         ct_jlk = []
 
         if self.turbulenceModel:
-            add_turb_nk = np.zeros((I * I * L, K), dtype=py_wake.dtype)
+            add_turb_nk = np.zeros((I * I * L, K), dtype=py_wake._dtype)
 
         i_wd_l = np.arange(L)
         wd = mean_deg(lw.WD_ilk, (0, 2))
@@ -651,7 +651,7 @@ class All2AllIterative(EngineeringWindFarmModel):
                                                             yaw_ilk, tilt_ilk, I, L, K, **kwargs)[0]
         lw = localWind
         WS_eff_ilk_last = WS_eff_ilk.copy()
-        diff_lk = np.zeros((L, K), dtype=py_wake.dtype)
+        diff_lk = np.zeros((L, K), dtype=py_wake._dtype)
         diff_lk_last, diff_lk_lastlast = None, None
         dw_iil, hcw_iil, dh_iil = self.site.distance(wd_l=lw.wd.values, WD_il=mean_deg(lw.WD_ilk, 2))
 

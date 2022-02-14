@@ -49,7 +49,7 @@ class LocalWind(xr.Dataset):
 
         for k, v in [('x', x_i), ('y', y_i), ('h', h_i)]:
             if v is not None:
-                coords[k] = ('i', np.zeros(n_i, dtype=py_wake.dtype) + v)
+                coords[k] = ('i', np.zeros(n_i, dtype=py_wake._dtype) + v)
         xr.Dataset.__init__(self, data_vars={k: da2py(v, include_dims=True) for k, v in [('WD', WD), ('WS', WS),
                                                                                          ('TI', TI), ('P', P)] if v is not None},
                             coords={k: da2py(v) for k, v in coords.items()})
@@ -345,7 +345,7 @@ class Site(ABC):
                                      ws=[100], ws_bins=[0, 200], wd_bin_size=1)
         else:
             if not hasattr(ws_bins, '__len__'):
-                ws_bins = np.linspace(0, 30, ws_bins, dtype=py_wake.dtype)
+                ws_bins = np.linspace(0, 30, ws_bins, dtype=py_wake._dtype)
             else:
                 ws_bins = np.asarray(ws_bins)
             ws = ((ws_bins[1:] + ws_bins[:-1]) / 2)
@@ -382,7 +382,7 @@ def get_sector_xr(v, name):
     if isinstance(v, (int, float)):
         return xr.DataArray(v, coords=[], name=name)
     v = np.r_[v, np.atleast_1d(v)[0]]
-    return xr.DataArray(v, coords=[('wd', np.linspace(0, 360, len(v), dtype=py_wake.dtype))], name=name)
+    return xr.DataArray(v, coords=[('wd', np.linspace(0, 360, len(v), dtype=py_wake._dtype))], name=name)
 
 
 def main():

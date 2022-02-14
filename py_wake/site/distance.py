@@ -106,14 +106,14 @@ class TerrainFollowingDistance(StraightDistance):
 
         if (self.src_eq_dst and self.dx_ij.shape[0] > 1):
             # calculate upper triangle of d_ij(distance from i to j) only
-            xy = np.array([(np.linspace(src_x, dst_x, self.distance_resolution, dtype=py_wake.dtype),
-                            np.linspace(src_y, dst_y, self.distance_resolution, dtype=py_wake.dtype))
+            xy = np.array([(np.linspace(src_x, dst_x, self.distance_resolution, dtype=py_wake._dtype),
+                            np.linspace(src_y, dst_y, self.distance_resolution, dtype=py_wake._dtype))
                            for i, (src_x, src_y) in enumerate(zip(self.src_x_i, self.src_y_i))
                            for dst_x, dst_y in zip(self.dst_x_j[i + 1:], self.dst_y_j[i + 1:])])
             upper_tri_only = True
         else:
-            xy = np.array([(np.linspace(src_x, dst_x, self.distance_resolution, dtype=py_wake.dtype),
-                            np.linspace(src_y, dst_y, self.distance_resolution, dtype=py_wake.dtype))
+            xy = np.array([(np.linspace(src_x, dst_x, self.distance_resolution, dtype=py_wake._dtype),
+                            np.linspace(src_y, dst_y, self.distance_resolution, dtype=py_wake._dtype))
                            for src_x, src_y in zip(self.src_x_i, self.src_y_i)
                            for dst_x, dst_y in zip(self.dst_x_j, self.dst_y_j)])
             upper_tri_only = False
@@ -126,7 +126,7 @@ class TerrainFollowingDistance(StraightDistance):
         s = np.sum(np.sqrt(dxy[:, na]**2 + dh**2), 1)
 
         if upper_tri_only:
-            d_ij = np.zeros(self.dx_ij.shape, dtype=py_wake.dtype)
+            d_ij = np.zeros(self.dx_ij.shape, dtype=py_wake._dtype)
             d_ij[np.triu(np.eye(len(src_x_i)) == 0)] = s  # set upper triangle
             d_ij[np.tril(np.eye(len(src_x_i)) == 0)] = s  # set lower triangle
         else:

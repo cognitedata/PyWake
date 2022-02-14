@@ -73,7 +73,7 @@ class GridRotorAvg(RotorAvgModel):
 
 class EqGridRotorAvg(GridRotorAvg):
     def __init__(self, n):
-        X, Y = np.meshgrid(np.linspace(-1, 1, n + 2, dtype=py_wake.dtype)[1:-1], np.linspace(-1, 1, n + 2, dtype=py_wake.dtype)[1:-1])
+        X, Y = np.meshgrid(np.linspace(-1, 1, n + 2, dtype=py_wake._dtype)[1:-1], np.linspace(-1, 1, n + 2, dtype=py_wake._dtype)[1:-1])
         m = (X**2 + Y**2) < 1
         GridRotorAvg.__init__(self,
                               nodes_x=X[m].flatten(),

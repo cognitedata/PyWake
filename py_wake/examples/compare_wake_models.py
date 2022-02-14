@@ -15,6 +15,10 @@ def main():
         
         LUT_path = os.path.dirname(py_wake.__file__) + '/tests/test_files/fuga/2MW/Z0=0.03000000Zi=00401Zeta0=0.00E+00/'
         
+        # py_wake.set_working_precision('single')
+        py_wake.set_working_precision('double')
+        
+        
         wt_x, wt_y = IEA37Site(16).initial_position.T
         
         windTurbines = HornsrevV80()

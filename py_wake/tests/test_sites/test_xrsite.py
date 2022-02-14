@@ -309,7 +309,7 @@ def test_i_time_dependent_WS():
         coords={'wd': np.linspace(0, 360, len(f), endpoint=False)})
     site = XRSite(ds)
     wfm = NOJ(site, V80())
-    sim_res = wfm([0, 200], [0, 0], ws=WS_it.mean(0), wd=np.zeros(4, dtype=py_wake.dtype), time=t)
+    sim_res = wfm([0, 200], [0, 0], ws=WS_it.mean(0), wd=np.zeros(4, dtype=py_wake._dtype), time=t)
     npt.assert_array_equal(sim_res.WS, WS_it)
 
 
