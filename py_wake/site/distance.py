@@ -273,7 +273,7 @@ class TerrainFollowingDistance2():
             # where r1 is radius of downwind turbine.
             # dist_down is expected to be less than dist_straight + 20%
             expected_wake_size = 1.2 * dist_down_isl * self.k_star * \
-                np.ones(len(r_i))[:, na, na] + r_i[:, na, na] + r_i[na, :, na]
+                np.ones(len(r_i), dtype=py_wake._dtype)[:, na, na] + r_i[:, na, na] + r_i[na, :, na]
             mask_isl = (expected_wake_size > dist_cross_isl) & (dist_down_isl > (2 * r_i.max()))
 
         any_sites_in_wake = np.any(mask_isl, 1)
