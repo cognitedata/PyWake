@@ -71,6 +71,8 @@ def test_working_precision():
     assert py_wake._dtype == np.float32
     py_wake.set_working_precision('longdouble')
     assert py_wake._dtype == np.longdouble
+    with pytest.raises(ValueError, match='precision random not recognized. Can be any of: "single", "double" or "longdouble".'):
+        py_wake.set_working_precision('random')
     py_wake.set_working_precision('double')
     assert py_wake._dtype == np.float64
 
