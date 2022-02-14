@@ -1,6 +1,7 @@
 from numpy import newaxis as na
 import matplotlib.pyplot as plt
 import numpy as np
+import py_wake
 from py_wake.deflection_models.deflection_model import DeflectionModel
 from py_wake.tests.test_files import tfp
 from py_wake.utils.fuga_utils import FugaUtils

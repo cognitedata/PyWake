@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from matplotlib.patches import Ellipse
 import warnings
 import inspect
+import py_wake
 from py_wake.wind_turbines.power_ct_functions import PowerCtFunctionList, PowerCtTabular, SimpleYawModel, CubePowerSimpleCt
 import xarray as xr
 from numpy import newaxis as na

@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABC
+import py_wake
 from py_wake.site._site import Site, UniformSite, UniformWeibullSite, LocalWind
 from py_wake.wind_turbines import WindTurbines
 import numpy as np
@@ -60,8 +61,8 @@ class WindFarmModel(ABC):
 
         if len(x) == 0:
             lw = UniformSite([1], 0.1).local_wind(x_i=[], y_i=[], h_i=[], wd=wd, ws=ws)
-            z = xr.DataArray(np.zeros((0, len(lw.wd), len(lw.ws)), dtype=py_wake._dtype), coords=[('wt', []), ('wd', da2py(lw.wd)),
-                                                                            ('ws', da2py(lw.ws))])
+            z = xr.DataArray(np.zeros((0, len(lw.wd), len(lw.ws)), dtype=py_wake._dtype),
+                             coords=[('wt', []), ('wd', da2py(lw.wd)), ('ws', da2py(lw.ws))])
             return SimulationResult(self, lw, [], yaw, tilt, z, z, z, z, kwargs)
         res = self.calc_wt_interaction(x_i=np.asarray(x), y_i=np.asarray(y), h_i=h, type_i=type,
                                        yaw_ilk=yaw_ilk, tilt_ilk=tilt_ilk,

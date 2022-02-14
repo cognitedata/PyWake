@@ -26,6 +26,7 @@ __release__ = '2.1.1'
 
 # Working precision.
 _dtype = np.double
+# _dtype = np.single
 
 
 def set_working_precision(precision='double'):

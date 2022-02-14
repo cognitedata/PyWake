@@ -1,6 +1,7 @@
 import numpy as np
 from abc import ABC, abstractmethod
 from numpy import newaxis as na
+import py_wake
 
 
 class SuperpositionModel(ABC):
