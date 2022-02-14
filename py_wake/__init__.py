@@ -4,6 +4,9 @@ An open source wind farm simulation tool capable of calculating wind farm flow f
 power production and annual energy production (AEP) of wind farms.
 """
 import pkg_resources
+import yaml
+import warnings
+import numpy as np
 from .deficit_models.noj import NOJ, NOJLocal
 from .deficit_models.fuga import Fuga, FugaBlockage
 from .deficit_models.gaussian import BastankhahGaussian, IEA37SimpleBastankhahGaussian
@@ -22,3 +25,28 @@ plugins = {
 # 'filled_by_setup.py'
 __version__ = '2.1.1'
 __release__ = '2.1.1'
+
+# Load configuration file and set default precision.
+fid = pkg_resources.resource_stream(__name__, 'config.yml')
+
+try:
+    # Load the file.
+    config = yaml.safe_load(fid)
+
+    # Set the precision.
+    if config['precision'] == 'single':
+        dtype = np.single
+    elif config['precision'] == 'double':
+        dtype = np.double
+    elif config['precision'] == 'longdouble' or config['precision'] == 'quad':
+        dtype = np.longdouble
+    else:
+        warnings.warn('Found invalid key for precision. Setting to double.')
+        dtype = np.double
+
+except yaml.YAMLError as exc:
+    warnings.warn('Error while reading configuration file. Setting precision to double.')
+    dtype = np.double
+
+finally:
+    fid.close()
