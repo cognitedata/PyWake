@@ -6,6 +6,7 @@ import warnings
 import pytest
 
 import sys
+import numpy as np
 import py_wake
 from unittest import mock
 from py_wake.flow_map import Grid
@@ -60,6 +61,18 @@ def test_main(module):
     finally:
         Grid.default_resolution = default_resolution
         plt.close('all')
+
+
+def test_working_precision():
+    # Test default.
+    assert py_wake._dtype == np.float64
+    # Test other precisions.
+    py_wake.set_working_precision('single')
+    assert py_wake._dtype == np.float32
+    py_wake.set_working_precision('longdouble')
+    assert py_wake._dtype == np.longdouble
+    py_wake.set_working_precision('double')
+    assert py_wake._dtype == np.float64
 
 
 if __name__ == '__main__':

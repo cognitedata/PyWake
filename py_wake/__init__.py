@@ -42,6 +42,7 @@ def set_working_precision(precision='double'):
     -------
     None.
     """
+    global _dtype
     if precision == 'single':
         _dtype = np.single
     elif precision == 'double':
