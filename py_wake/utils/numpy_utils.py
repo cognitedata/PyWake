@@ -2,6 +2,7 @@ import numpy
 import py_wake
 from numpy.lib.index_tricks import RClass
 import inspect
+import autograd.numpy as autograd_numpy
 
 
 class NumpyBackend():
@@ -15,12 +16,13 @@ class NumpyBackend():
 
 
 class Numpy32(NumpyBackend):
+    backend = numpy
 
     def __getattribute__(self, name):
         try:
             return object.__getattribute__(self, name)
         except AttributeError:
-            f = getattr(numpy, name)
+            f = getattr(self.backend, name)
             if isinstance(f, (type, int, float, RClass)) or f is None or inspect.ismodule(f):
                 return f
             else:
@@ -40,37 +42,17 @@ class Numpy32(NumpyBackend):
                 return wrap
 
 
-class Numpy64(NumpyBackend):
-
-    def __getattribute__(self, name):
-        try:
-            return object.__getattribute__(self, name)
-        except AttributeError:
-            f = getattr(numpy, name)
-            if isinstance(f, (type, int, float, RClass)) or f is None or inspect.ismodule(f):
-                return f
-            else:
-                def wrap(*args, **kwargs):
-                    res = f(*args, **kwargs)
-                    from numpy import dtype, float32, complex128
-                    if not hasattr(res, 'dtype'):
-                        return res
-                    try:
-                        return res.astype({dtype('float64'): float,
-                                           dtype('complex128'): complex128,
-                                           }[res.dtype])
-                    except KeyError:
-                        # if str(res.dtype) not in ['int32', 'float32', 'int64', 'bool', '<U6']:
-                        #     print(res.dtype)
-                        return res
-                return wrap
+class AutogradNumpy32(Numpy32):
+    backend = autograd_numpy
 
 
 class AutogradNumpy():
     def __enter__(self):
         self.old_backend = py_wake.np.backend
-        from autograd import numpy as anp
-        py_wake.np.backend = anp
+        if isinstance(self.old_backend, Numpy32):
+            py_wake.np.backend = AutogradNumpy32()
+        else:
+            py_wake.np.backend = autograd_numpy
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         py_wake.np.backend = self.old_backend
