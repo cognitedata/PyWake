@@ -1,4 +1,4 @@
-import numpy as np
+from py_wake import np
 from numpy import newaxis as na
 from py_wake.utils import gradients
 from autograd.numpy.numpy_boxes import ArrayBox

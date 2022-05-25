@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from numpy import newaxis as na
-import numpy as np
+from py_wake import np
 from py_wake.superposition_models import SuperpositionModel, LinearSum, WeightedSum
 from py_wake.wind_farm_models.wind_farm_model import WindFarmModel
 from py_wake.deflection_models.deflection_model import DeflectionModel

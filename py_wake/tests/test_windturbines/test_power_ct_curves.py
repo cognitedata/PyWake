@@ -1,7 +1,7 @@
 from numpy import newaxis as na
 import pytest
 import matplotlib.pyplot as plt
-import numpy as np
+from py_wake import np
 import xarray as xr
 from py_wake.examples.data import hornsrev1
 from py_wake.tests import npt
@@ -378,7 +378,7 @@ def test_DensityScaleAndSimpleYawModel():
 if __name__ == '__main__':
     x = np.linspace(0, 2 * np.pi, 100)
     import matplotlib.pyplot as plt
-    import numpy as np
+    from py_wake import np
     plt.plot(x, np.sin(x) / x)
     plt.plot(x, np.sin(x))
     plt.show()

@@ -3,6 +3,11 @@
 An open source wind farm simulation tool capable of calculating wind farm flow fields,
 power production and annual energy production (AEP) of wind farms.
 """
+import numpy
+np = numpy
+from py_wake.utils.numpy_utils import NumpyWrapper
+locals()['np'] = NumpyWrapper()
+
 import pkg_resources
 from .deficit_models.noj import NOJ, NOJLocal
 from .deficit_models.fuga import Fuga, FugaBlockage

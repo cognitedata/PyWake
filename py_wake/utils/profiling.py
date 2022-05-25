@@ -1,7 +1,7 @@
 import time
 import functools
 import sys
-import numpy as np
+from py_wake import np
 import gc
 import os
 import psutil

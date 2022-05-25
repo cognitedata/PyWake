@@ -1,5 +1,5 @@
 import time
-import numpy as np
+from py_wake import np
 from py_wake.utils.profiling import profileit
 from py_wake.tests import npt
 
