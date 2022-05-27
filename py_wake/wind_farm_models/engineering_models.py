@@ -770,6 +770,9 @@ class All2AllIterative(EngineeringWindFarmModel):
             else:
                 deficit_iilk, blockage_iilk = self._calc_deficit(**args)
 
+            # Storing calcualte speed and blockage deficit to be used in intereference calculation
+            self.deficit_iilk, self.blockage_iilk = deficit_iilk, blockage_iilk
+
             # Calculate effective wind speed
             if isinstance(self.superpositionModel, WeightedSum):
                 WS_eff_ilk = lw.WS_ilk - self.superpositionModel(lw.WS_ilk, deficit_iilk,
